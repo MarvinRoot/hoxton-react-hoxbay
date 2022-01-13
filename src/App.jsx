@@ -4,10 +4,13 @@ import Header from './components/Header'
 import Products from './components/pages/Products'
 import Categories from './components/pages/Categories'
 import Basket from './components/pages/Basket'
+import CategoryProducts from './components/pages/CategoryProducts'
+import ProductDetails from './components/pages/ProductDetails'
 
 function App() {
+  // const [selectedCategory, setSelectedCategory] = useState()
   const [products, setProducts] = useState([])
-  const [selectedCategory, setSelectedCategory] = useState()
+  const [basket, setBasket] = useState([])
 
   useEffect(() => {
     fetch('http://localhost:3001/products').then(resp => resp.json())
@@ -21,7 +24,9 @@ function App() {
         {
           <Routes>
             <Route path='/products' element={<Products products={products} />} />
-            <Route path='/categories' element={<Categories setSelectedCategory={setSelectedCategory}/>} />
+            <Route path='/categories' element={<Categories />} />
+            <Route path='/categories/:categoryId' element={<CategoryProducts products={products} setProducts={setProducts} />} />
+            <Route path='/products/:productId' element={<ProductDetails setBasket={setBasket} products={products}/>} />
             <Route path='/basket' element={<Basket />} />
           </Routes>
         }
