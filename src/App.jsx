@@ -27,7 +27,7 @@ function App() {
             <Route path='/categories' element={<Categories />} />
             <Route path='/categories/:categoryId' element={<CategoryProducts products={products} setProducts={setProducts} />} />
             <Route path='/products/:productId' element={<ProductDetails setBasket={setBasket} products={products}/>} />
-            <Route path='/basket' element={<Basket />} />
+            <Route path='/basket' element={<Basket basket={basket}/>} />
           </Routes>
         }
       </main>

@@ -15,7 +15,7 @@ export default function ProductDetails(props) {
                         <p>{product.description}</p>
                         <p>{'£' + product.price}</p>
                         <Link to={'/basket'}><button onClick={() => {
-                            let updatedBasket = [...props.basket, product.id]
+                            let updatedBasket = [...props.basket, product]
                             props.setBasket(updatedBasket)
                         }}>Add to basket</button></Link>
                     </div>
