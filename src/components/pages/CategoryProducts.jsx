@@ -1,21 +1,22 @@
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import ProductList from "../ProductList"
 
-export default function CategoryProducts(props) {
+export default function CategoryProducts() {
     const params = useParams()
+    const [products, setProducts] = useState([])
+
+    // fetch products
+    useEffect(() => {
+        fetch(`http://localhost:3001/products?categoryId=${params.categoryId}`)
+            .then(resp => resp.json())
+            .then(productsFromServer => setProducts(productsFromServer))
+    }, [])
 
     return (
-        <section>
-            <p> {params.categoryId}</p>
-            {props.products.filter(product => {
-                product.categoryId === params.categoryId
-            }).map(product => {
-                <li>
-                    <article className="product-item">
-                        <img src={product.image} alt={product.title} />
-                        <h3>{product.title}</h3>
-                    </article>
-                </li>
-            })}
-        </section>
+        <h1>
+            Products for category: {params.categoryId}
+            <ProductList products={products} />
+        </h1>
     )
 }

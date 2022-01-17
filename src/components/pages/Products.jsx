@@ -1,17 +1,22 @@
-export default function Products(props) {
+import { useEffect, useState } from 'react'
 
-    return (
-        <section className="products-container main-wrapper">
-            <ul className="products-container__list">
-                {props.products.map(product => {
-                    <li>
-                        <article className="product-item">
-                            <img src={product.image} alt={product.title} />
-                            <h3>{product.title}</h3>
-                        </article>
-                    </li>
-                })}
-            </ul>
-        </section>
-    )
+import ProductList from '../ProductList'
+
+function Products() {
+  const [products, setProducts] = useState([])
+
+  // fetch products
+  useEffect(() => {
+    fetch('http://localhost:3001/products')
+      .then(resp => resp.json())
+      .then(productsFromServer => setProducts(productsFromServer))
+  }, [])
+
+  return (
+    <section className="products-container main-wrapper">
+      <ProductList products={products} />
+    </section>
+  )
 }
+
+export default Products

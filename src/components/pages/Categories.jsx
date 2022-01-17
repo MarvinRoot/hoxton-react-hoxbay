@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function Categories(props) {
+export default function Categories() {
     return (
         <section className="categories-container main-wrapper">
             <ul className="categories-container__list">
