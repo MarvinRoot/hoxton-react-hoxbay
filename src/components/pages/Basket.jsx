@@ -39,7 +39,7 @@ export default function Basket() {
                 <p>There are no items in your basket.</p>
             ) : (
                 <ul>
-                    {basket.map(product => {
+                    {basket.map(product => (
                         <li key={product.id}>
                             <article className="basket-container__item">
                                 <img src={product.image} alt={product.title} width={90} />
@@ -56,7 +56,7 @@ export default function Basket() {
                                 <p>Item total: £{(product.price * product.quantity).toFixed(2)}</p>
                             </article>
                         </li>
-                    })}
+                    ))}
                 </ul>
             )}
             <h3>Your total: {'£' + getTotalCost(basket)}</h3>
