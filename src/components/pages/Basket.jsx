@@ -31,9 +31,10 @@ export default function Basket() {
             deleteProduct(item.id)
         } else {
             item.quantity = newQuantity
+            updatedBasket = updatedBasket.filter(target => target.id !== item.id)
+            updatedBasket.push(item)
             changeQuantity(item)
         }
-        
         setBasket(updatedBasket)
     }
 
