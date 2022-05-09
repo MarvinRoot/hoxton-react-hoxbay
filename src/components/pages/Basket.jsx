@@ -8,15 +8,32 @@ export default function Basket() {
             .then(basketFromServer => setBasket(basketFromServer))
     }, [])
 
+    function changeQuantity(item) {
+        fetch(`http://localhost:3001/basket/${item.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(item)
+        }).then(resp => resp.json())
+    }
+
+    function deleteProduct(id) {
+        fetch(`http://localhost:3001/basket/${id}`, {
+            method: 'DELETE'
+        }).then(resp => resp.json())
+    }
+
     function updateQuantity(item, newQuantity) {
         let updatedBasket = JSON.parse(JSON.stringify(basket))
-
-        if (newQuantity > 0) {
-            const match = updatedBasket.find(target => target.id === item.id)
-            match.quantity = newQuantity
-        } else {
+        if (newQuantity === 0){
             updatedBasket = updatedBasket.filter(target => target.id != item.id)
+            deleteProduct(item.id)
+        } else {
+            item.quantity = newQuantity
+            changeQuantity(item)
         }
+        
         setBasket(updatedBasket)
     }
 
